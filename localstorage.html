@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>localstorage</title>
+</head>
+<body>
+    
+
+
+
+<script>
+
+
+console.log(localStorage.length);//0;
+// 存储数据
+localStorage.setItem('name','cabin');
+// localStorage.name='cabin';//与上等价；
+console.log(localStorage);
+
+// 读取数据
+console.log(localStorage.getItem('name'));
+// 读取存储在localStorage上的所有值
+console.log(localStorage.valueOf());
+// 读取第一条数据的变量名
+console.log(localStorage.key(0));
+// 检查localstorage里是否保存某个变量
+console.log(localStorage.hasOwnProperty('name'));//true
+// 删除某个变量
+localStorage.removeItem('name');
+console.log(localStorage);
+// 检查localstorage里是否保存某个变量
+console.log(localStorage.hasOwnProperty('name'));//false
+
+// 将数组转为本地字符串
+var arr = ['aa','bb','cc'];
+localStorage.arr = arr;
+console.log(localStorage.arr.toLocaleString());
+
+// 将JSON存储到localStorage里
+var students = {
+    xiaomin:{
+        name:'xiaoming',
+        grade:1
+    },
+    teemo:{
+        name:'teemo',
+        grade:3
+    }
+}
+
+students =JSON.stringify(students);
+console.log(students);
+localStorage.setItem('student',students);
+
+var newStudents = localStorage.getItem('students');
+newStudents = JSON.parse(students);
+console.log(newStudents);
+
+
+
+
+
+</script>
+
+</body>
+</html>

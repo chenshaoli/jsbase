@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>string 方法</title>
+</head>
+<body>
+
+
+    
+</body>
+
+<script>
+
+    //string 方法总结；
+    let nameStr = "this is a string ";
+    console.log(nameStr);
+
+    //字符方法：charAt(),charCodeAt();
+    console.log(nameStr.charAt(3));//返回指点位置的字符；
+    console.log(nameStr.charCodeAt(0));//返回指点位置字符的字符编码；
+
+    console.log('---------------');
+    //字符串操作方法：concat();slice(),substring(),substr();
+    let ageStr = 'this is also a string';
+    let ageStrConcat = nameStr.concat(ageStr);
+    console.log(nameStr);//原字符串不变，返回一个新拼接过的字符串；实际应用中都是用“+”做字符串拼接；
+    console.log(ageStrConcat);
+    console.log('---------------');
+    let nameStrSlice = nameStr.slice(3,6);//返回从开始位置到结束位置前一个位置的字符串组成的子字符串；
+    console.log(nameStrSlice);//s i
+    console.log(nameStr);//原字符串不变；
+    console.log('---------------');
+    let nameStrSubString = nameStr.substring(3,6);//返回从开始位置到结束位置前一个位置的字符串组成的子字符串；
+    console.log(nameStrSubString);//s i
+    console.log(nameStr);//原字符串不变；
+    console.log('---------------');
+    let nameStrSubstr = nameStr.substr(3,6);//返回以第一个参数为初始位置到第二个参数的个数的子字符串；
+    console.log(nameStrSubstr);//原字符串不变；
+    console.log(nameStr);//s is a
+    console.log('---------------');
+    //字符串位置方法：indexOf(),lastIndexOf();
+    let nameStrindexOf = nameStr.indexOf('i');
+    console.log(nameStrindexOf);//返回从字符串左边开始匹配到的第一个字符的位置；
+    let nameStrLastIndexOf = nameStr.lastIndexOf('s');
+    console.log(nameStrLastIndexOf);//返回从字符串右边开始匹配到的第一个字符串的位置；
+    let nameStrindexOfNum = nameStr.indexOf('i',2);  
+    console.log(nameStrindexOfNum);//返回从指定位置开始之后匹配到的第一个字符的位置；
+    let nameStrLastIndexOfNum = nameStr.lastIndexOf('s',5);
+    console.log(nameStrLastIndexOfNum);
+    console.log('---------------');
+
+    let nameStrTrim = nameStr.trim();//返回一个新的删除了字符串前后的空格的新字符串；
+    console.log(nameStrTrim);
+    console.log(nameStr);//原字符串不变；
+    console.log('---------------');
+    //字符串大小写转换方法：toLowerCase(),toUpperCase();
+    let nameStrToLowerCase = nameStr.toLowerCase();
+    let nameStrToUpperCase = nameStr.toUpperCase();
+    console.log(nameStrToLowerCase);//转换为小写
+    console.log(nameStrToUpperCase);//转换为大写
+    console.log(nameStr);//原字符串不变；
+
+    //字符串模板匹配方法：match(),search(),replace(),split()
+    let nameStrMatch = nameStr.match(/is/g);//参数是有字符串或正则表达式；
+    console.log(nameStrMatch);//返回匹配到的字符组成的数组；
+    console.log(nameStr);
+    console.log('---------------');
+    let nameStrSearch = nameStr.search(/is/g);
+    console.log(nameStrSearch);//返回匹配到的第一个位置；
+    console.log('---------------');
+    let nameStrReplace = nameStr.replace('is','oo');//第一个参数是字符串则只替换第一个匹配到的字符；
+    console.log(nameStrReplace);
+    console.log(nameStr);//原字符串不变；
+    let nameStrReplace2 = nameStr.replace(/is/g,'oo');//第一个参数是正则表达式，则会替换所有匹配到的字符串；
+    console.log(nameStrReplace2);
+    console.log(nameStr);
+    console.log('---------------');
+    let nameStrSplit = nameStr.split(' ');//以指定的字符分隔字符串,且该字符必须是现在字符串中存在的字符；
+    console.log(nameStrSplit);//返回一个被分隔的字符串数组；
+    console.log(nameStr);//原字符串不变；
+
+    let nameStrSplit2 = nameStr.split(' ',3);//第二个参数控制分隔后的数组长度；
+    console.log(nameStrSplit2);
+    console.log(nameStr);//原字符串不变；
+
+    //localeCompare()方法；
+    let nameStrLocaleCompare = nameStr.localeCompare('a');//比较两个字符串；字符串排在参数之后返回1；相等返回0，之后返回-1；
+    console.log(nameStrLocaleCompare);
+    //fromCharCode()是字符串的静态方法；
+    let nameStrFromCharCode = String.fromCharCode(104,101,108,108,111);//参数是一个或多个字符编码；
+    console.log(nameStrFromCharCode);
+
+    //找到匹配字符串所在的各个位置：
+    let positions = [];
+    let pos = nameStr.indexOf('i');
+    while(pos>-1){
+        positions.push(pos);
+        pos = nameStr.indexOf('i',pos+1);
+    }
+    console.log(positions);
+
+
+
+
+    //字符串去重；
+    function unity (str) {
+        let newArr = [];
+        let nameArr = str.split('');
+        for(let i=0;i<nameArr.length;i++){
+            if(newArr.indexOf(nameArr[i])==-1){//使用新数组匹配分隔后的字符数组中是否有重复的字符；
+                newArr.push(nameArr[i]);
+            }
+        }
+        return newArr.join('');
+    }
+    console.log(unity(nameStr));
+
+    
+    var count = 0;
+    var sum = [];
+    //判断字符串中字符出现的次数；
+    let newArr = unity(nameStr);
+    let nameArr = nameStr.split('');
+    for(let i=0;i<newArr.length;i++){
+        for(let j=0;j<nameArr.length;j++){
+            if(nameArr[j] == newArr[i]){
+                count++;
+            }
+        }
+        sum.push(count);
+        count = 0;
+    }
+    for(let i=0;i<newArr.length;i++){
+        console.log(newArr[i]+"出现过"+sum[i]+"次。");
+    }
+
+
+
+    function computedAge(birth){
+        let age;
+        let strbirthTimeArr = birth.split('-');
+        let birthYear = strbirthTimeArr[0];
+        let birthMonth = strbirthTimeArr[1];
+        let birthDay = strbirthTimeArr[2];
+
+        let d = new Date();
+        let Year = d.getFullYear();
+        let Month = d.getMonth()+1;
+        let Day = d.getDate();
+
+        if(birthYear == Year){
+            age = 0;
+        } else {
+            let diffYear = Year - birthYear;
+            if(diffYear>0){
+                let diffMonth = Month - birthMonth;
+                if(diffMonth<0){
+                    age = diffYear - 1;
+                } else {
+                    let diffDay = Day - birthDay;
+                    if(diffDay<0) {
+                        age = diffYear - 1;
+                    } else {
+                        age = diffYear;
+                    }
+                }
+            }else{
+                age = -1
+            }
+        }
+        return age;
+    }
+    console.log(computedAge('1990-03-20'));
+</script>
+</html>

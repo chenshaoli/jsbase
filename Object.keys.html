@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Object.keys</title>
+</head>
+<body>
+
+    <script>
+    //传入对象，返回属性名
+    var obj = {'a':"100",'b':"3456"};
+    console.log(Object.keys(obj));//["a","b"]
+
+    var obj1 = {100:"a",2:"b",7:"c"};
+    console.log(Object.keys(obj1));//["2","7","100"];
+    
+    //传入字符串，返回索引
+    var str = "sifsjdflkg";
+    console.log(Object.keys(str));
+
+    //传构造函数，返回为空数组或属性名；
+    function Pasta(name,age,gender) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.toString = function () {
+            return (this.name+','+this.age+','+this.gender);
+        }
+    }
+    console.log(Object.keys(Pasta));//[];
+
+    var spaghetti = new Pasta('Tom',20,"male");
+    console.log(Object.keys(spaghetti));//["name","age","gender","toString"]
+
+    //传入数组，返回索引；
+
+    var arr = ["a","b","c"];
+    console.log(Object.keys(arr));//["0","1","2"]
+
+
+    </script>
+    
+</body>
+</html>

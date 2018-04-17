@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RegExp</title>
+</head>
+<body>
+    <script>
+    var re = null,
+    i;
+    
+    // for(i=0;i<10;i++){
+    //     re = /cat/g;
+    //    console.log( re.test("catastrophe"));
+    // }
+
+    for(i=0;i<10;i++){
+        re = new RegExp('cat',"g");
+        console.log(re.test("catastrophe"));
+    }
+
+    var pattern = /[b|c]at/ig;
+
+    console.log('multiline'+pattern.multiline);
+    console.log('global'+pattern.global);
+    console.log('ignoreCase'+pattern.ignoreCase);
+    console.log('source'+pattern.source);
+    console.log(typeof pattern.source);
+    console.log('lastIndex'+pattern.lastIndex);
+
+    //exec方法：
+
+    var str = 'cat,bat,sat,fat';
+    var matchs = pattern.exec(str);
+    console.log(matchs);
+    var match = pattern.exec(str);
+    console.log(match);
+
+    var text = "mom and dad and baby";
+
+    var reg = /mom (and dad (and baby))/gi;
+
+    var ex = reg.exec(text);//对exec而言，即使在模式中设置了全局g，每次调用也只会返回一个匹配项，而设置了全局的g，则多次调用的情况下会返回继续查找的匹配项；
+    console.log(ex);// ["mom and dad and baby", "and dad and baby", "and baby", index: 0, input: "mom and dad and baby"];第一个是整个捕获项，第二个与第一个捕获组匹配，第三项与第二个捕获组匹配；
+    console.log(ex.index);
+    console.log(ex.input);
+    console.log(ex[0]);
+    console.log(ex[1]);
+    console.log(ex[2]);
+
+    //test方法：适合用在if语句中，只判断目标字符串与某个模式是否匹配；这种用法经常出现在验证用户输入的情况下！
+
+    var text1 = "000-00-0000";
+    var pat = /\d{3}-\d{2}-\d{4}/;
+
+    if(pat.test(text1)){
+        console.log('the pattern was matched');
+    }
+
+    console.log('-----------');
+    //正则的构造函数属性：即静态属性；这些属性在test()和exec()方法执行后再静态方法中自动填充的，就是在执行过这两个方法后就可以访问的。
+    var text2 = "this has been a short summer";
+    var patt = /(.)hort/g;
+
+    if(patt.test(text2)){
+        console.log(RegExp.input);
+        console.log(RegExp.leftContext);//this has been a 
+        console.log(RegExp.rightContext);// summer
+        console.log(RegExp.lastMatch);//short
+        console.log(RegExp.lastParen);//s
+        console.log(RegExp.multiline);//undifined
+    }
+
+
+    //以上每个长属性名，都对应有一个短属性名，但是，这些属性名大都不是有效的ECMAScript标识符，因此必须通过方括号语法来访问它们；
+    //下面的都与以上一一对应；
+
+    if(patt.test(text2)){
+        console.log(RegExp.$_);
+        console.log(RegExp["$`"]);
+        console.log(RegExp["$'"]);
+        console.log(RegExp["$&"]);
+        console.log(RegExp["$+"]);
+        console.log(RegExp["$*"]);
+    }
+
+    </script>
+
+</body>
+</html>

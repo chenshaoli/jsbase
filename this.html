@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this</title>
+    <style>
+    #btn{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+    }
+    </style>
+</head>
+<body>
+        <div id='btn'>
+            
+        </div>
+    <script>
+        // a simple example 全局作用域；
+        var name = 'Kevin Yang';
+        function sayHi() {
+            alert('你好，我的名字叫'+name);
+            alert('你好，我的名字叫'+this.name);
+        }
+        sayHi();//name=Kevin Yang;this.name=Kevin Yang
+
+
+
+
+        // another simple example 对象作用域
+        var name2 = "Kevin Yang";
+        function sayHi2(){
+            alert('你好，我的名字叫'+this.name);
+        }
+        var person = {};
+        // person.name= 'Marry';//如果添加此句，则this.name = Marry
+        person.sayHello = sayHi2;
+        person.sayHello();//this.name=undefiend;
+        
+        // 面向对象式的函数编程
+        var name3 = 'Kevin Yang';
+        function sayHi3() {
+            alert('你好，我的名字叫'+this.name);
+        }
+        function Person(name) {
+            this.name = name;
+        }
+        Person.prototype.sayHello = sayHi3;
+        var Marry = new Person('marry');
+        Marry.sayHello();
+        var kevin = new Person('kevin');
+        kevin.sayHello();
+
+    
+
+        var kperson = {
+            name:'Kevin Yang',
+            sayHi:function (){
+                alert('你好，我是'+this.name);
+            }
+        }
+        setTimeout(kperson.sayHi,5000);
+    
+
+
+
+
+        // 1:当this所在函数是事件处理函数，this是事件源
+        document.getElementById('btn').onclick = function() {
+            console.log('this就是btn是事件源');
+        }
+
+        // 2:当this所在函数是构造函数时，this是new出来的对象；
+        function Age(name){
+            this.name = name;//就是new出来的对象p1
+            this.eat = function (){
+                alert(this.name+'在吃');
+            }
+        }
+
+        var p1= new Age('王雨');
+        p1.eat();
+        // 3:this所在函数的所属对象是谁，this就是谁。
+        var p2 = new Age('小花');
+        var p3 = new Age('小草');
+        p2.eat();//该函数执行的对象是p2，所以this指向就是p2
+        p3.eat();//该函数执行的对象是p3，所以this指向就是p3
+
+
+        // 4:当this所在函数没有所属对象，this就指向window对象。
+        function test(){
+            console.log(this);//这个this就是window;
+        }
+        test();
+        window.test();
+
+        // 全局变量是window对象的属性
+        var t = "流星";
+        console.log(window.t);
+
+        var obj = {
+            name:"张鼎",
+            sex:"男"
+        }
+        console.log(window.obj.name);
+
+
+        // this转移是我们会碰到的问题？
+        // 1）、如何区分this
+        // 一定要清楚this所在函数调用时的隶属对象（）
+        // 2）、如果不希望被this折磨
+        // 可以选用ES6中的箭头函数
+
+
+
+        //实验apply传数组，call传罗列的参数
+        var numbers = [5,458,120,-215];
+        var maxInNumbers = Math.max.apply(Math,numbers);
+        var minInNumbers = Math.min.call(Math,5,458,120,-215);
+        console.log(maxInNumbers);
+        console.log(minInNumbers);
+
+
+
+        function P1(id,name){
+            this.id = id;
+            this.name = name;
+        }
+        P1.prototype.eat = function (){
+            console.log('aa'+this);//window
+            console.log('bb'+this.name);//kevin Yang,都是全局对象和变量
+        }
+        P1.prototype.work = function(func){
+            func();
+        }
+        let pt = new P1('007','张三');
+        pt.work(pt.eat);
+        console.log(pt.name)
+
+    </script>
+    
+</body>
+</html>
